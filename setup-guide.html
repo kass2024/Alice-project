@@ -132,6 +132,7 @@ dir</code></pre>
           <tr><th>Path inside the project</th><th>What it is</th><th>You edit it?</th></tr>
           <tr><td><code>backend</code></td><td>Spring Boot API. Runs on port 8080.</td><td>Only the settings file below</td></tr>
           <tr><td><code>backend\src\main\resources\application.properties</code></td><td>Database name, port, user, password, and the Gemini setting.</td><td>Yes, for the database</td></tr>
+          <tr><td><code>database\alice_teacher.sql</code></td><td>Export of the school database. Import this when you want the same demo data.</td><td>No</td></tr>
           <tr><td><code>backend\gemini-key.local</code></td><td>Your Gemini key, one line. This file is not in the clone. You create it.</td><td>Yes. Do not commit it.</td></tr>
           <tr><td><code>frontend</code></td><td>React website. Runs on port 5173.</td><td>No, for a normal setup</td></tr>
           <tr><td><code>app attendance</code></td><td>Android phone app.</td><td>No. The phone types the laptop address in the app.</td></tr>
@@ -218,6 +219,12 @@ app.db-password=</code></pre>
         <p>You do not create the database in phpMyAdmin. <code>createDatabaseIfNotExist=true</code> creates <code>alice_teacher</code> when the API starts. Hibernate then creates the tables. The first start also inserts the demo school when there are no users yet.</p>
       </div>
       <p>Save the file, then restart the API window if it was already running. A running API does not notice a saved properties file until you close that window and start it again.</p>
+      <h3>Load the exported database</h3>
+      <p>The file <code>database\alice_teacher.sql</code> is a full export of <code>alice_teacher</code>, including the demo accounts and sample rows. MariaDB must already be running. Import it before the first API start if you want this copy of the data. If the API has already created an empty database, this import replaces that database.</p>
+      <pre><code>C:\xampp7\mysql\bin\mysql.exe -u root -P 3307 &lt; "C:\Alice-project\database\alice_teacher.sql"</code></pre>
+      <p>On this laptop the same command uses the project path. Run it in Command Prompt:</p>
+      <pre><code>C:\xampp7\mysql\bin\mysql.exe -u root -P 3307 &lt; "C:\methode\water_level\Alice project\database\alice_teacher.sql"</code></pre>
+      <p>The SQL file creates the database <code>alice_teacher</code>. Change the name inside the file only if you also changed <code>app.db-name</code>.</p>
 
       <h2 id="gemini">5. Configure the Gemini key</h2>
       <p>AI analysis on the website needs a Google AI key. The key is not in the GitHub project. You add it on your own computer, in a file Git will not upload.</p>
