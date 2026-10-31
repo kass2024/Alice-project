@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/forest_dark"
+    android:fitsSystemWindows="true">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:layout_width="260dp"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/face_ring" />
+
+    <LinearLayout
+        android:id="@+id/resultCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/phase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WATCHING"
+            android:textColor="@color/gold"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="serif"
+            android:text="Looking for a face"
+            android:textColor="@color/forest_dark"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Hold still inside the ring. The first match today is check-in. The next match is check-out."
+            android:textColor="@color/muted" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/close"
+            style="@style/Brand.Button.Outline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Close" />
+    </LinearLayout>
+</FrameLayout>

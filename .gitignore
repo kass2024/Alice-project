@@ -1,0 +1,12 @@
+backend/target/
+backend/uploads/
+backend/gemini-key.local
+frontend/node_modules/
+frontend/dist/
+.tools/
+*.log
+app attendance/.gradle/
+app attendance/app/build/
+app attendance/build/
+app attendance/local.properties
+app attendance/.idea/

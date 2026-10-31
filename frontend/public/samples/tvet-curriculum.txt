@@ -1,0 +1,27 @@
+TVET curriculum sample
+Trade: Computer Applications
+Level: 3
+
+Module CA301: Computer basics
+Learning outcomes:
+- Identify the main parts of a computer.
+- Start and shut down a computer safely.
+Indicative content: monitor, keyboard, system unit, mouse, power button.
+
+Module CA302: Word processing
+Learning outcomes:
+- Create and save a document.
+- Format text, headings, and a simple table.
+Indicative content: Microsoft Word or LibreOffice Writer, fonts, alignment, tables.
+
+Module CA303: Spreadsheets
+Learning outcomes:
+- Enter data in cells.
+- Use SUM and AVERAGE.
+Indicative content: rows, columns, formulas, a class mark sheet.
+
+Module CA304: Safe computer use
+Learning outcomes:
+- Keep a password private.
+- Save files in the correct folder.
+Indicative content: passwords, file names, backup copy.

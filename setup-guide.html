@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Setup guide — Smart Teacher Attendance</title>
+  <style>
+    :root {
+      --ink: #17241c;
+      --muted: #4e5e55;
+      --line: #e3d9cc;
+      --sand: #f4efe6;
+      --card: #fffdf8;
+      --forest: #1b6b45;
+      --forest-dark: #103828;
+      --gold: #b5812f;
+      --leaf: #e7f5ec;
+      --danger: #a33b32;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--sand);
+      color: var(--ink);
+      font: 17px/1.6 "Segoe UI", Georgia, serif;
+    }
+    a { color: var(--forest); }
+    img { max-width: 100%; }
+    header {
+      background: linear-gradient(160deg, var(--forest-dark), #1b6b45 70%);
+      color: #f7f3ea;
+      padding: 28px 20px 22px;
+    }
+    .hero, .page { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    .kicker { margin: 0 0 8px; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; color: #f0d7a4; }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; font-weight: 650; }
+    .lead { margin: 0; max-width: 740px; color: #e7f5ec; }
+    .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .jump a {
+      color: #103828;
+      background: #fffdf8;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+    main { padding: 22px 0 64px; }
+    h2 { margin: 34px 0 8px; color: var(--forest-dark); font-size: clamp(24px, 3vw, 32px); line-height: 1.2; }
+    h3 { margin: 20px 0 8px; color: var(--forest); font-size: 20px; }
+    p { margin: 0 0 12px; }
+    ol.steps, ul { margin: 0 0 14px; }
+    ol.steps { padding: 0; list-style: none; counter-reset: step; }
+    ol.steps > li {
+      counter-increment: step;
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px 14px 62px;
+      margin: 10px 0;
+    }
+    ol.steps > li::before {
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: white;
+      text-align: center;
+      line-height: 34px;
+      font-weight: 700;
+    }
+    .card, .note {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+    .note.leaf { background: var(--leaf); border-color: #c9e6d4; }
+    .note.gold { border-left: 5px solid var(--gold); }
+    .note.danger { border-left: 5px solid var(--danger); }
+    table { width: 100%; border-collapse: collapse; background: white; margin: 10px 0 16px; }
+    th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+    th { background: #f6f0e6; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+    .table-wrap { overflow-x: auto; }
+    code, .path {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .9em;
+      background: #efe6d8;
+      padding: 1px 6px;
+      border-radius: 5px;
+    }
+    pre {
+      background: var(--forest-dark);
+      color: #f7f3ea;
+      border-radius: 14px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 10px 0 14px;
+    }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .tile { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+    .tile b { display: block; color: var(--forest); margin-bottom: 4px; }
+    .where { background: #103828; color: #f7f3ea; border-radius: 16px; padding: 16px; }
+    .where a { color: #f0d7a4; }
+    @media (max-width: 800px) {
+      .hero, .page { width: min(100% - 24px, 1080px); }
+      .grid { grid-template-columns: 1fr; }
+      ol.steps > li { padding-left: 16px; padding-top: 56px; }
+      h1 { font-size: 28px; }
+      body { font-size: 16.5px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <p class="kicker">Public project · local setup</p>
+      <h1>Smart Teacher Attendance &amp; Pedagogical Document Management System</h1>
+      <p class="lead">Install the database, the Spring Boot backend, and the React website on a Windows laptop. Then connect the Android app. No Docker. A public clone does not ask for a password.</p>
+      <nav class="jump">
+        <a href="#where">This file</a>
+        <a href="#clone">Clone</a>
+        <a href="#java">Java</a>
+        <a href="#maven">Maven</a>
+        <a href="#node">Node.js</a>
+        <a href="#db">Database</a>
+        <a href="#backend">Spring Boot</a>
+        <a href="#frontend">Website</a>
+        <a href="#run">Daily start</a>
+        <a href="#phone">Phone app</a>
+        <a href="#trouble">If it fails</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="page">
+
+      <h2 id="where">Where this guide is</h2>
+      <div class="where">
+        <p>On this laptop, double-click:</p>
+        <p><code>C:\methode\water_level\Alice project\setup-guide.html</code></p>
+        <p>On GitHub, after the project is published:</p>
+        <p><a href="https://github.com/kass2024/Alice-project/blob/main/setup-guide.html">https://github.com/kass2024/Alice-project/blob/main/setup-guide.html</a></p>
+      </div>
+      <div class="grid">
+        <div class="tile"><b>Database</b>MariaDB from XAMPP. Database name <code>alice_teacher</code>. Port <b>3307</b> on this laptop.</div>
+        <div class="tile"><b>Backend</b>Spring Boot 2.7.18 on port <b>8080</b>. The website and the phone both call this API.</div>
+        <div class="tile"><b>Website</b>React 18 and Vite on port <b>5173</b>. The phone never uses 5173.</div>
+      </div>
+
+      <h2 id="clone">0. Copy the project (no password)</h2>
+      <p>The repository is public. <code>git clone</code> over HTTPS downloads it without a username or password.</p>
+      <ol class="steps">
+        <li>Install Git for Windows from <a href="https://git-scm.com/download/win">https://git-scm.com/download/win</a>. Keep the default options. Close and reopen Command Prompt after install.</li>
+        <li>Check Git:
+          <pre><code>git --version</code></pre>
+        </li>
+        <li>Clone into a folder you choose. Example:
+          <pre><code>cd C:\
+git clone https://github.com/kass2024/Alice-project.git
+cd Alice-project</code></pre>
+        </li>
+        <li>Open <code>setup-guide.html</code> from that new folder and continue below. This laptop already has the files at <code>C:\methode\water_level\Alice project</code>, so you can skip the clone here.</li>
+      </ol>
+      <div class="note leaf">
+        <p>If Git asks for a password, the address is wrong or the repository was made private. The public address is <code>https://github.com/kass2024/Alice-project.git</code>.</p>
+      </div>
+
+      <h2 id="java">1. Install Java for Spring Boot</h2>
+      <p>The API is compiled as Java 11 and runs on Java 11 or newer. Install <b>Temurin JDK 17</b>.</p>
+      <ol class="steps">
+        <li>Open <a href="https://adoptium.net/temurin/releases/?version=17">https://adoptium.net</a> and download <b>JDK 17, Windows x64, .msi</b>.</li>
+        <li>Run the installer. Tick <b>Set JAVA_HOME</b> and <b>Add to PATH</b> if those boxes are shown. If they are not shown, the installer still adds Java for most PCs.</li>
+        <li>Close every Command Prompt window, open a new one, and run:
+          <pre><code>java -version</code></pre>
+          You want a line that says version <b>17</b> (or 11 or newer).
+        </li>
+        <li>Also run <code>javac -version</code>. If only <code>java</code> works and <code>javac</code> does not, you installed a runtime, not the JDK. Install the JDK again.</li>
+      </ol>
+
+      <h2 id="maven">2. Install Maven (builds the Spring Boot API)</h2>
+      <p>Maven downloads the Spring libraries and starts the API. Install it once.</p>
+      <ol class="steps">
+        <li>Download the binary zip <b>apache-maven-3.9.9-bin.zip</b> from <a href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a>.</li>
+        <li>Extract it to <code>C:\apache-maven-3.9.9</code> so this file exists:
+          <p class="path">C:\apache-maven-3.9.9\bin\mvn.cmd</p>
+        </li>
+        <li>Press the Windows key, type <b>environment variables</b>, and open <b>Edit the system environment variables</b>.</li>
+        <li>Click <b>Environment Variables</b>. Under your user variables, edit <b>Path</b>. Click <b>New</b> and add:
+          <p class="path">C:\apache-maven-3.9.9\bin</p>
+        </li>
+        <li>Click OK on every window. Open a <b>new</b> Command Prompt and run:
+          <pre><code>mvn -version</code></pre>
+          It should print Maven 3.9.9 and the Java version.
+        </li>
+      </ol>
+      <div class="note gold">
+        <p>On this laptop, a Maven copy also sits in <code>.tools</code> inside the project. That folder is not in GitHub. After a clone, use the Maven you installed above. <code>start.bat</code> uses <code>.tools</code> when that folder exists, and <code>mvn</code> from Path otherwise.</p>
+      </div>
+
+      <h2 id="node">3. Install Node.js for the website</h2>
+      <ol class="steps">
+        <li>Download the Windows <b>LTS</b> installer from <a href="https://nodejs.org">https://nodejs.org</a>.</li>
+        <li>Run it. Leave <b>Add to PATH</b> selected. Finish the installer.</li>
+        <li>Open a new Command Prompt:
+          <pre><code>node -v
+npm -v</code></pre>
+          Both commands must print a version.
+        </li>
+      </ol>
+
+      <h2 id="db">4. Install the database (XAMPP MariaDB)</h2>
+      <p>Spring Boot does not install a database. XAMPP provides MariaDB. The MySQL button in XAMPP starts that database. The API creates the database <code>alice_teacher</code> the first time it starts. User <code>root</code>, empty password, time zone Africa/Kigali.</p>
+      <ol class="steps">
+        <li>Download XAMPP for Windows from <a href="https://www.apachefriends.org">https://www.apachefriends.org</a>.</li>
+        <li>Install it. This laptop uses <code>C:\xampp7</code>. A new install often uses <code>C:\xampp</code>. Either path is fine.</li>
+        <li>Open <code>C:\xampp7\mysql\bin\my.ini</code> (or <code>C:\xampp\mysql\bin\my.ini</code>) in Notepad.</li>
+        <li>Find the line <code>port=3306</code> under <code>[mysqld]</code> and set it to:
+          <pre><code>port=3307</code></pre>
+          This project’s <code>application.properties</code> uses <b>3307</b>. If you leave MariaDB on 3306, change both <code>spring.datasource.url</code> and <code>app.db-port</code> in <code>backend\src\main\resources\application.properties</code> to <b>3306</b> so they match.
+        </li>
+        <li>Save <code>my.ini</code>. Open the <b>XAMPP Control Panel</b>. Click <b>Start</b> next to <b>MySQL</b>. The module must show a green <b>Running</b> state.</li>
+        <li>Test the port in Command Prompt. A result of <code>1</code> means MariaDB is up. Use the folder where you installed XAMPP:
+          <pre><code>C:\xampp7\mysql\bin\mysql.exe -u root -P 3307 -e "SELECT 1"</code></pre>
+        </li>
+      </ol>
+      <div class="note danger">
+        <p>Do not delete <code>C:\xampp7\mysql\data\smart_teacher</code>. That is an old leftover folder. This project uses the database name <code>alice_teacher</code> only. If root has a password, put that password in <code>spring.datasource.password</code> and <code>app.db-password</code>.</p>
+      </div>
+      <p>You do not create tables by hand. On the first API start, Hibernate creates the tables. When the user table is empty, the API inserts the demo school.</p>
+
+      <h2 id="backend">5. Start the Spring Boot backend</h2>
+      <p>The backend folder is <code>backend</code>. The main class is <code>com.alice.smartteacher.SmartTeacherApplication</code>. Port <b>8080</b>.</p>
+      <ol class="steps">
+        <li>MariaDB must already be running (step 4).</li>
+        <li>Open Command Prompt and go into the backend folder. On this laptop:
+          <pre><code>cd /d "C:\methode\water_level\Alice project\backend"</code></pre>
+          After a clone, use the folder you cloned into, for example <code>cd /d C:\Alice-project\backend</code>.
+        </li>
+        <li>Start Spring Boot:
+          <pre><code>mvn spring-boot:run</code></pre>
+          The first start downloads dependencies. Leave this window open. It can take several minutes.
+        </li>
+        <li>Wait until the window prints:
+          <p class="path">Smart Teacher API is ready.</p>
+          On a brand-new database it also prints <code>Login: admin / password123</code>.
+        </li>
+        <li>Open a browser on the same laptop:
+          <p><a href="http://localhost:8080/api/health">http://localhost:8080/api/health</a></p>
+          The page must show <code>{"status":"ok"}</code>.
+        </li>
+        <li>Optional check that the database was created:
+          <pre><code>C:\xampp7\mysql\bin\mysql.exe -u root -P 3307 -e "SHOW DATABASES"</code></pre>
+          <code>alice_teacher</code> is in that list.
+        </li>
+      </ol>
+      <h3>Settings you can leave as they are</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>File setting</th><th>Value</th><th>Meaning</th></tr>
+          <tr><td>server.port</td><td>8080</td><td>API address</td></tr>
+          <tr><td>spring.datasource.url</td><td>localhost:3307 / alice_teacher</td><td>MariaDB. The database is created if it is missing.</td></tr>
+          <tr><td>app.school-start</td><td>08:00</td><td>Expected arrival</td></tr>
+          <tr><td>app.late-after</td><td>08:15</td><td>A first clock after this time is Late</td></tr>
+          <tr><td>app.face-threshold</td><td>1.00</td><td>How close a phone face signature must be</td></tr>
+          <tr><td>gemini.api-key</td><td>environment variable</td><td>Needed only for AI analysis. See below.</td></tr>
+        </table>
+      </div>
+      <div class="note gold">
+        <p>Document analysis needs a Google AI key. Put <b>one line</b>, the key only, in a file named <code>backend\gemini-key.local</code>. <code>start.bat</code> reads that file. You can also set a Windows user variable named <code>GEMINI_API_KEY</code> before <code>mvn spring-boot:run</code>. That file is not in the GitHub repository. Do not commit it.</p>
+      </div>
+      <p>Attendance from the phone uses action <b>AUTO</b>: no check-in yet means check-in; a check-in already saved means check-out; both times saved means already recorded. A teacher on leave is not changed.</p>
+
+      <h2 id="frontend">6. Start the React website</h2>
+      <p>The website is in <code>frontend</code>. Vite listens on port <b>5173</b> and forwards <code>/api</code> to <code>http://localhost:8080</code>. Start the backend first so the pages have data.</p>
+      <ol class="steps">
+        <li>Open a <b>second</b> Command Prompt. Leave the Spring Boot window running.</li>
+        <li>Go into the website folder:
+          <pre><code>cd /d "C:\methode\water_level\Alice project\frontend"</code></pre>
+        </li>
+        <li>Install the libraries once (this creates <code>node_modules</code>, which is not in GitHub):
+          <pre><code>npm install</code></pre>
+        </li>
+        <li>Start the site:
+          <pre><code>npm run dev</code></pre>
+        </li>
+        <li>When the window shows a local address, open <a href="http://localhost:5173">http://localhost:5173</a>.</li>
+        <li>Sign in with username <code>admin</code> and password <code>password123</code>.</li>
+      </ol>
+      <p>Every later day, <code>npm install</code> is unnecessary unless the website dependencies change. Use <code>npm run dev</code> only.</p>
+
+      <h2>What each website page is for</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Menu</th><th>Address</th><th>Who</th></tr>
+          <tr><td>Dashboard</td><td>http://localhost:5173/</td><td>Everyone</td></tr>
+          <tr><td>Attendance</td><td>/attendance</td><td>Daily register. Demo rows are already filled for today.</td></tr>
+          <tr><td>Biometric</td><td>/biometric</td><td>Who has a face, and the phone log. This page does not open a camera.</td></tr>
+          <tr><td>Repository</td><td>/documents</td><td>Upload drafts. REB uses Syllabus and Weeks breakdown. TVET uses Curriculum and Chronogram.</td></tr>
+          <tr><td>AI analysis</td><td>/analysis</td><td>Load sample files, Analyse, save a scheme. Needs the Gemini key and a running API.</td></tr>
+          <tr><td>Approvals</td><td>/approvals</td><td>Admin and Head of Studies</td></tr>
+          <tr><td>Class activity</td><td>/teaching</td><td>Start and end a lesson</td></tr>
+          <tr><td>Reports</td><td>/reports</td><td>Admin and Head of Studies</td></tr>
+          <tr><td>Notifications</td><td>/notifications</td><td>In-app alerts</td></tr>
+          <tr><td>Users</td><td>/users</td><td>Admin. The phone enrols only people who already exist.</td></tr>
+          <tr><td>Storage</td><td>/storage</td><td>Admin. Backup uses mysqldump from XAMPP.</td></tr>
+          <tr><td>Security</td><td>/security</td><td>Admin. Login sessions.</td></tr>
+        </table>
+      </div>
+
+      <h2>Demo accounts</h2>
+      <p>Password for every account: <code>password123</code>. Email is <code>username@school.rw</code>.</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Username</th><th>Name</th><th>Role</th><th>Today in the sample register</th></tr>
+          <tr><td>admin</td><td>School Admin</td><td>Admin</td><td>—</td></tr>
+          <tr><td>patrick</td><td>Patrick Ndayisaba</td><td>Head of Studies</td><td>—</td></tr>
+          <tr><td>alice</td><td>Alice Uwimana</td><td>Teacher, Mathematics</td><td>Present 07:55</td></tr>
+          <tr><td>jean</td><td>Jean Bosco Hakizimana</td><td>Teacher, English</td><td>Late 08:27</td></tr>
+          <tr><td>marie</td><td>Marie Claire Ingabire</td><td>Teacher, Biology</td><td>Absent</td></tr>
+          <tr><td>eric</td><td>Eric Habimana</td><td>Teacher, History</td><td>On leave</td></tr>
+          <tr><td>divine</td><td>Divine Mukamana</td><td>Teacher, Computer Science</td><td>Present 08:05</td></tr>
+          <tr><td>grace</td><td>Grace Uwase</td><td>Teacher, Physics</td><td>Present 07:50</td></tr>
+        </table>
+      </div>
+
+      <h2 id="run">7. Start everything the easy way</h2>
+      <p>After Java, Maven, Node, and XAMPP are installed, and after <code>npm install</code> has been run once:</p>
+      <ol class="steps">
+        <li>Double-click <code>start.bat</code> in the project folder.</li>
+        <li>It checks MariaDB on port 3307. If that check fails, it tries to start <code>C:\xampp7\mysql\bin\mysqld.exe</code>. If your XAMPP is in <code>C:\xampp</code>, start MySQL from the XAMPP panel yourself, then run <code>start.bat</code>.</li>
+        <li>Two windows stay open: <b>Smart Teacher API</b> and <b>Smart Teacher UI</b>.</li>
+        <li>Wait for <b>Smart Teacher API is ready.</b></li>
+        <li>Open <a href="http://localhost:5173">http://localhost:5173</a>.</li>
+      </ol>
+
+      <h2 id="phone">8. Android app</h2>
+      <p>The app folder is <code>app attendance</code>. Open that folder in Android Studio, not the whole project. The phone is the camera. Install Java and the API before you use the phone.</p>
+      <ol class="steps">
+        <li>Install Android Studio. The SDK on this laptop is <code>C:\Users\user\AppData\Local\Android\Sdk</code>.</li>
+        <li>Build the install file from Command Prompt, with the internet on the first time:
+          <pre><code>cd /d "C:\methode\water_level\Alice project\app attendance"
+gradlew.bat assembleDebug</code></pre>
+        </li>
+        <li>Copy this file to the phone and install it:
+          <p class="path">app attendance\app\build\outputs\apk\debug\app-debug.apk</p>
+        </li>
+        <li>On the laptop run <code>ipconfig</code>. Copy the <b>IPv4 Address</b> under <b>Wireless LAN adapter Wi-Fi</b>. The phone and the laptop must be on the same Wi-Fi.</li>
+        <li>In the app, School server is <code>http://YOUR-IP:8080</code> with no slash at the end. Tap <b>Test connection</b>, then sign in as <code>admin</code> / <code>password123</code>.</li>
+        <li><b>Enroll</b> loads the staff list after you open it. <b>Take photo</b> saves a face. <b>Remove</b> deletes a saved face.</li>
+        <li><b>Verify</b> names the teacher. The first clock of the day is check-in. A later clock is check-out. The camera then waits 12 seconds.</li>
+      </ol>
+      <div class="note gold">
+        <p>An emulator on this laptop uses <code>http://10.0.2.2:8080</code>. If the phone cannot connect, allow Java on private networks, or in an Administrator PowerShell run:</p>
+        <pre><code>netsh advfirewall firewall add rule name="Smart Teacher API" dir=in action=allow protocol=TCP localport=8080</code></pre>
+        <p>Alice, Jean, Divine, and Grace already have a check-in in today’s sample data, so their first successful scan is check-out. Marie’s first match is check-in. Eric stays on leave.</p>
+      </div>
+
+      <h2>Addresses</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Address</th><th>Use</th></tr>
+          <tr><td>localhost port 3307</td><td>MariaDB. Only the API connects.</td></tr>
+          <tr><td>http://localhost:8080/api/health</td><td>Proof the Spring Boot API is up.</td></tr>
+          <tr><td>http://localhost:5173</td><td>Website in the laptop browser.</td></tr>
+          <tr><td>http://&lt;laptop-ip&gt;:8080</td><td>Phone School server.</td></tr>
+          <tr><td>http://10.0.2.2:8080</td><td>Android emulator on this laptop.</td></tr>
+        </table>
+      </div>
+
+      <h2 id="trouble">If something does not work</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>What you see</th><th>What to do</th></tr>
+          <tr><td>git clone asks for a password</td><td>Use <code>https://github.com/kass2024/Alice-project.git</code>. The repository must stay public.</td></tr>
+          <tr><td><code>java</code> or <code>mvn</code> is not recognized</td><td>Install the JDK and Maven, add them to Path, then open a new Command Prompt.</td></tr>
+          <tr><td><code>npm</code> is not recognized</td><td>Install the Node.js LTS installer again and open a new Command Prompt.</td></tr>
+          <tr><td>MySQL will not start in XAMPP</td><td>Another program is using the port in <code>my.ini</code>. Match that port with <code>application.properties</code>.</td></tr>
+          <tr><td>API database error</td><td>MySQL is stopped, the port is not 3307, or root has a password.</td></tr>
+          <tr><td>Port 8080 already in use</td><td>Close the old Smart Teacher API window and start once.</td></tr>
+          <tr><td>localhost:5173 does not open</td><td>Run <code>npm install</code> inside <code>frontend</code>, then <code>npm run dev</code>.</td></tr>
+          <tr><td>Pages load and then show errors</td><td>The API window is closed. Wait for <b>Smart Teacher API is ready.</b></td></tr>
+          <tr><td>Health page is ok, Analyse fails</td><td>Create <code>backend\gemini-key.local</code> with your key on one line, then restart the API.</td></tr>
+          <tr><td>Phone Test connection fails</td><td>Use the Wi-Fi IPv4 and port 8080. Allow the firewall rule. Keep the API window open.</td></tr>
+        </table>
+      </div>
+
+      <h2>Stop</h2>
+      <p>Close the <b>Smart Teacher API</b> window and the <b>Smart Teacher UI</b> window. MySQL in XAMPP can stay running. Next time, start MySQL if it is stopped, double-click <code>start.bat</code>, and open <a href="http://localhost:5173">http://localhost:5173</a>.</p>
+    </div>
+  </main>
+</body>
+</html>

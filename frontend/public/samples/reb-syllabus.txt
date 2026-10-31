@@ -1,0 +1,27 @@
+S2 Mathematics syllabus (sample)
+Subject: Mathematics
+Class: Senior 2
+
+Unit 1: Numbers and operations
+Lessons: integers, fractions, percentages.
+Learning outcomes:
+- Compare integers and place them on a number line.
+- Add and subtract fractions with the same denominator.
+- Calculate a percentage of a quantity.
+
+Unit 2: Algebra
+Lessons: algebraic expressions, simple equations.
+Learning outcomes:
+- Simplify an expression by collecting like terms.
+- Solve a linear equation with one unknown.
+- Check a solution by substitution.
+
+Unit 3: Geometry
+Lessons: angles, triangles, perimeter.
+Learning outcomes:
+- Name and measure acute, right, and obtuse angles.
+- Find a missing angle in a triangle.
+- Calculate the perimeter of a rectangle and a triangle.
+
+Assessment: short exercise at the end of each lesson, and a weekly quiz.
+Resources: textbook, ruler, protractor, chalkboard.

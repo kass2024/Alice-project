@@ -1,0 +1,17 @@
+<resources>
+    <color name="ink">#17241C</color>
+    <color name="forest">#1B6B45</color>
+    <color name="forest_dark">#103828</color>
+    <color name="leaf">#E7F5EC</color>
+    <color name="gold">#B5812F</color>
+    <color name="gold_soft">#F8EFDC</color>
+    <color name="sand">#F3EFE6</color>
+    <color name="card">#FFFDF8</color>
+    <color name="line">#E5DCCB</color>
+    <color name="muted">#66756C</color>
+    <color name="danger">#A33B32</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#1B6B45</color>
+    <color name="green_dark">#103828</color>
+    <color name="paper">#F3EFE6</color>
+</resources>

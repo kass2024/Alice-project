@@ -1,0 +1,10 @@
+Chronogram for Computer Applications, Level 3
+
+Week 1: CA301 computer parts. 3 hours.
+Week 2: CA301 start-up and shut-down practice. 3 hours.
+Week 3: CA302 create and save a document. 3 hours.
+Week 4: CA302 formatting and a simple table. 3 hours.
+Week 5: CA303 enter data in a mark sheet. 3 hours.
+Week 6: CA303 SUM and AVERAGE. 3 hours.
+Week 7: CA304 passwords and file organisation. 3 hours.
+Week 8: Revision and practical test. 3 hours.
