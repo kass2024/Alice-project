@@ -35,7 +35,7 @@ public class GeminiService {
                                         String primaryLabel, String primaryText,
                                         String secondaryLabel, String secondaryText) {
         if (!ready()) {
-            throw new ApiException(400, "The Gemini API key is missing. Add it in application.properties.");
+            throw new ApiException(400, "The Gemini API key is missing. Put it on one line in backend/gemini-key.local, then restart the API.");
         }
         String prompt = prompt(track, subject, className, primaryLabel, primaryText, secondaryLabel, secondaryText);
         String lastError = "Gemini did not return an analysis.";
